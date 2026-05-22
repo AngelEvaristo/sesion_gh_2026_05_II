@@ -1,0 +1,14 @@
+name: Workflow deploy dev - Node
+
+on:
+  Workflow_dispatch: {}
+
+jobs:
+  docker-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run a docker action
+        uses: docker://alpine:3.18
+        with:
+          args: echo "Hola desde Alpine dentro de github Actions"
+

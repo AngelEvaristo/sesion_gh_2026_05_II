@@ -28,6 +28,13 @@ jobs:
 
       - name: build
         run: ng build --configuration $CONFIGURATION
+
+      - name: Crear zip usando composite action
+        uses: AngelEvaristo/sesion_gh_2026_05_II_templates/.github/actions/createzip@main
+        with:
+          source: dist/my-first-angular-app/browser
+          output: dropnode.zip
+            
   deploy:
     runs-on: ubuntu-latest
     steps:

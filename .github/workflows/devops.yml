@@ -4,11 +4,30 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  docker-job:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Run a docker action
-        uses: docker://alpine:3.18
+      - name: Checout repo
+        uses: actions/checkout@v4
+
+      - name: Setear version Node
+        uses: actions/setup-node@v4
         with:
-          args: echo "Hola desde Alpine dentro de github Actions"
+          node-version: ${{ vars.VERSIONNODE }}
+
+      - name: Restore    
+        run: |
+          echo "Restaurar paquetes"
+          npm install -g @angular/cli
+          npm install
+
+      - name: build
+        run: ng build --configuration production  
+  # docker-job:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Run a docker action
+  #       uses: docker://alpine:3.18
+  #       with:
+  #         args: echo "Hola desde Alpine dentro de github Actions"
 

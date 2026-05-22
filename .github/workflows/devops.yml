@@ -3,9 +3,14 @@ name: Workflow deploy dev - Node
 on:
   workflow_dispatch: {}
 
+env:
+  VERSIONNODE: 20
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      CONFIGURATION: production
     steps:
       - name: Checout repo
         uses: actions/checkout@v4
@@ -13,7 +18,7 @@ jobs:
       - name: Setear version Node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ vars.VERSIONNODE }}
+          node-version: ${{ env.VERSIONNODE }}
 
       - name: Restore    
         run: |
@@ -22,7 +27,7 @@ jobs:
           npm install
 
       - name: build
-        run: ng build --configuration production  
+        run: ng build --configuration $CONFIGURATION 
   # docker-job:
   #   runs-on: ubuntu-latest
   #   steps:

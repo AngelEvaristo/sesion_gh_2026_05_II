@@ -1,7 +1,7 @@
 name: Workflow deploy dev - Node
 
 on:
-  Workflow_dispatch: {}
+  workflow_dispatch: {}
 
 jobs:
   docker-job:

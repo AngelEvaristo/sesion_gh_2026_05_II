@@ -27,7 +27,12 @@ jobs:
           npm install
 
       - name: build
-        run: ng build --configuration $CONFIGURATION 
+        run: ng build --configuration $CONFIGURATION
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: test
+        run: echo "Pruebas env y vars"         
   # docker-job:
   #   runs-on: ubuntu-latest
   #   steps:

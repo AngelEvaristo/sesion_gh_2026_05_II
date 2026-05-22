@@ -7,45 +7,53 @@ env:
   VERSIONNODE: 20
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    env:
-      CONFIGURATION: production
-    steps:
-      - name: Checout repo
-        uses: actions/checkout@v4
+  call-build:
+    uses: AngelEvaristo/sesion_gh_2026_05_II_templates/.github/workflows/build-node.yml@main
+    with:
+      versionnode: "20"
+      app-name-zip: "app.zip"
+      app-name: "drop-node-template"
+      source-path: "dist/my-first-angular-app/browser"
+      
+  # build:
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     CONFIGURATION: production
+  #   steps:
+  #     - name: Checout repo
+  #       uses: actions/checkout@v4
 
-      - name: Setear version Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.VERSIONNODE }}
+  #     - name: Setear version Node
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: ${{ env.VERSIONNODE }}
 
-      - name: Restore    
-        run: |
-          echo "Restaurar paquetes"
-          npm install -g @angular/cli
-          npm install
+  #     - name: Restore    
+  #       run: |
+  #         echo "Restaurar paquetes"
+  #         npm install -g @angular/cli
+  #         npm install
 
-      - name: build
-        run: ng build --configuration $CONFIGURATION
+  #     - name: build
+  #       run: ng build --configuration $CONFIGURATION
 
-      - name: Crear zip usando composite action
-        uses: AngelEvaristo/sesion_gh_2026_05_II_templates/.github/actions/createzip@main
-        with:
-          source: dist/my-first-angular-app/browser
-          output: dropnode.zip
+  #     - name: Crear zip usando composite action
+  #       uses: AngelEvaristo/sesion_gh_2026_05_II_templates/.github/actions/createzip@main
+  #       with:
+  #         source: dist/my-first-angular-app/browser
+  #         output: dropnode.zip
 
-      - name: Publicar artefacto
-        uses: actions/upload-artifact@v4
-        with:
-          name: drop-node
-          path: dropnode.zip
+  #     - name: Publicar artefacto
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: drop-node
+  #         path: dropnode.zip
           
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: test
-        run: echo "Pruebas env y vars"         
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: test
+  #       run: echo "Pruebas env y vars"         
   # docker-job:
   #   runs-on: ubuntu-latest
   #   steps:
